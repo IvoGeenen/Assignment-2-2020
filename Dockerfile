@@ -17,11 +17,16 @@ RUN rm -rf jquery_releases.csv
 # Docker caches results, so if you want to add custom steps to this dockerfile
 # (maybe you want to copy in more files) then consider adding these steps below here.
 # Otherwise you will need to download all versions of jQuery everytime you add new 
-# steps. 
+# steps.
 
 WORKDIR /usr
 
+COPY /manual_clones .
+
 COPY jsinspect jsinspect
+
+RUN mkdir jsinspect_output
+RUN mkdir cloc_output
 
 RUN npm install -g ./jsinspect
 
@@ -30,6 +35,12 @@ RUN npm install -g ./jsinspect
 ENV NODE_OPTIONS=--max-old-space-size=4000
 
 WORKDIR /usr/jquery-data
+
+COPY jsinspect.py jsinspect.py
+COPY coverage.py coverage.py
+
+RUN python jsinspect.py
+# RUN python coverage.py
 
 # Open a bash prompt, such that you can execute commands 
 # such as `cloc`. 
