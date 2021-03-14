@@ -57,18 +57,25 @@ def calculate_coverage(file):
     dup_intervals = []
     # Loop over all matches in the file
     for match in jsinspect_json:
+        # Check if the duplicate is from two different files
+        distinct_versions = set()
         for inst in match["instances"]:
-            path = inst["path"]
-            lines = inst["lines"]
-            contains = False
-            # Check if there is already an match for this file, if so add the interval to it, otherwise create new
-            for dup in dup_intervals:
-                if path in dup:
-                    dup[1].append(lines)
-                    contains = True
-                    break
-            if not contains:
-                dup_intervals.append([path, [lines]])
+            distinct_versions.add(inst["path"].split("/")[1])
+
+        # Count the duplicate only if it is from two different files
+        if len(distinct_versions) > 1:
+            for inst in match["instances"]:
+                path = inst["path"]
+                lines = inst["lines"]
+                contains = False
+                # Check if there is already an match for this file, if so add the interval to it, otherwise create new
+                for dup in dup_intervals:
+                    if path in dup:
+                        dup[1].append(lines)
+                        contains = True
+                        break
+                if not contains:
+                    dup_intervals.append([path, [lines]])
 
     # Sort the intervals
     for interval_list in dup_intervals:

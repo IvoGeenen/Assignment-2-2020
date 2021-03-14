@@ -20,3 +20,4 @@ if __name__ == "__main__":
 
         print(f"Executing {command}")
         os.system(command)
+
