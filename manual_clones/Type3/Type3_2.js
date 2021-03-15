@@ -1,12 +1,12 @@
 function baseSnippet() {
-    let x = 0;
-    let y = 10;
+    var a = 0;
+    var b = 10;
 
     var i;
-    for (i = 0; i < y; i++) {
-        if (x < 5) {
-            x += 2;
+    for (i = 0; i < b; i++) {
+        if (a < 5) {
+            a += 2;
         }
     }
-    return x;
+    return a;
 }

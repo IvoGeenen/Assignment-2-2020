@@ -1,14 +1,14 @@
-function baseSnippet() {
-    let x = 0;
-    let y = 10;
+function anotherDifferentSnippet() {
+    let n = 0;
+    let m = 10;
     let z = 1
 
     var i;
-    for (i = 0; i < y; i++) {
-        if (x < 5) {
-            x *= 3;
+    for (i = 0; i < m; i++) {
+        if (n < 5) {
+            n *= 3;
             z += 1;
         }
     }
-    return x;
+    return n;
 }
